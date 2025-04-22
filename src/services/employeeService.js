@@ -30,7 +30,6 @@ export const getEmployeeByIdService = async (id) => {
   }
 };
 
-
 export const updateEmployeeService = async (id, data) => {
   try {
     const employee = await Employee.findByIdAndUpdate(id, data, { new: true });
@@ -38,5 +37,15 @@ export const updateEmployeeService = async (id, data) => {
   } catch (error) {
     console.log('Error updating employee:', error);
     throw new Error('Failed to update employee');
+  }
+};
+
+export const deleteEmployeeService = async (id) => {
+  try {
+    const employee = await Employee.findByIdAndDelete(id);
+    return employee;
+  } catch (error) {
+    console.log('Error deleting employee:', error);
+    throw new Error('Failed to delete employee');
   }
 };

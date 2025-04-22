@@ -2,6 +2,7 @@ import express from 'express';
 
 import {
   addEmployee,
+  deleteEmployee,
   getEmployee,
   getEmployees,
   updateEmployee
@@ -16,6 +17,8 @@ router.get('/employees', isAuthenticated, getEmployees);
 
 router.get('/employee/:id', isAuthenticated, getEmployee);
 
-router.put('/employee/:id', isAuthenticated,  updateEmployee);
+router.put('/employee/:id', isAuthenticated, updateEmployee);
+
+router.delete('/employee/:id', isAuthenticated, deleteEmployee);
 
 export default router;

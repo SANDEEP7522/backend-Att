@@ -13,3 +13,26 @@ export const generateEmailTemplate = (verificationCode) => {
     </div>
   `;
 };
+
+// Validates employee data
+export const validateEmployeeData = (data) => {
+  const { name, designation, department, email, phone } = data;
+
+  if (!name || !designation || !department || !email || !phone) {
+    return 'All fieldsare required.';
+  }
+
+  // Email validation (basic regex)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return 'Invalid email format.';
+  }
+
+  // Phone validation (only digits, 10 characters)
+  const phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(phone)) {
+    return 'Phone number must be 10 digits.';
+  }
+
+  return null;
+};

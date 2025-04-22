@@ -5,14 +5,14 @@ import { FRONTEND_URL } from '../config/serverConfig.js';
 import { catchAsyncError } from '../middlewares/catchAsycError.js';
 import ErrorHandler from '../middlewares/error.js';
 import User from '../models/userModel.js';
-import { sendEmail } from '../utils/sendEmail.js';
-import { sendToken } from '../utils/sendToken.js';
 import { generateEmailTemplate } from '../utils/commons/emailObject.js';
 import {
   customErrorResponse,
   internalErrorResponse,
   successResponse
 } from '../utils/commons/responseObject.js';
+import { sendEmail } from '../utils/sendEmail.js';
+import { sendToken } from '../utils/sendToken.js';
 
 export const registerUser = catchAsyncError(async (req, res, next) => {
   try {

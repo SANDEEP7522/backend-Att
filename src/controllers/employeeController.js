@@ -28,3 +28,20 @@ export const addEmployee = async (req, res) => {
       .json(internalErrorResponse);
   }
 };
+
+export const getEmployees = async (req, res) => {
+  try {
+    const employees = await employeeService.getAllEmployeesService();
+    return res
+      .status(StatusCodes.CREATED)
+      .json(successResponse(employees, 'Employees fetched successfully'));
+  } catch (err) {
+    console.error('Error fetching:', err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).json(customErrorResponse(err));
+    }
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse);
+  }
+};

@@ -9,3 +9,13 @@ export const createEmployeeService = async (data) => {
     throw new Error('Failed to create employee');
   }
 };
+
+export const getAllEmployeesService = async () => {
+  try {
+    const employees = await Employee.find();
+    return employees;
+  } catch (error) {
+    console.error('Error fetching employees:', error);
+    throw new Error('Failed to fetch employees');
+  }
+};

@@ -1,0 +1,60 @@
+# Node modules
+node_modules/
+
+# Build and output directories
+dist/
+build/
+
+# Environment and config files
+.env
+.env.local
+.env.development
+.env.production
+
+# Log files
+logs/
+*.log
+
+# Temporary files
+temp/
+.cache/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Test coverage reports
+coverage/
+# Node modules
+node_modules/
+
+# Build and output directories
+dist/
+build/
+
+# Environment and config files
+.env
+.env.local
+.env.development
+.env.production
+
+# Log files
+logs/
+*.log
+
+# Temporary files
+temp/
+.cache/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Test coverage reports
+coverage/

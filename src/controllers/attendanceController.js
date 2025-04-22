@@ -67,3 +67,21 @@ export const checkOut = async (req, res) => {
       .json(internalErrorResponse);
   }
 };
+
+// get all attendance records for employee
+export const getAllAttendance = async (req, res) => {
+  try {
+    const records = await attendanceService.getAllAttendance(req.query);
+    return res
+      .status(StatusCodes.CREATED)
+      .json(successResponse(records, 'Checked out successfully'));
+  } catch (err) {
+    console.error('Error checking out:', err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).json(customErrorResponse(err));
+    }
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse);
+  }
+};

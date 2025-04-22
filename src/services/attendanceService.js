@@ -32,3 +32,23 @@ export const updateAttendance = async (id, data) => {
     throw new Error('Failed to update attendance');
   }
 };
+
+// get all attendance records for employee
+export const getAllAttendance = async (filters = {}) => {
+  try {
+    const query = {};
+
+    if (filters.startDate && filters.endDate) {
+      query.checkIn = {
+        $gte: new Date(filters.startDate),
+        $lte: new Date(filters.endDate)
+      };
+    }
+
+    const records = await Attendance.find(query).populate('employee');
+    return records;
+  } catch (err) {
+    console.error('Error in getAllAttendance:', err);
+    throw new Error('Failed to fetch attendance records');
+  }
+};

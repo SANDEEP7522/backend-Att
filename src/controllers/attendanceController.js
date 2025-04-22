@@ -43,3 +43,27 @@ export const checkIn = async (req, res) => {
       .json(internalErrorResponse);
   }
 };
+
+export const checkOut = async (req, res) => {
+  try {
+    const record = await attendanceService.updateAttendance(
+      req.params.id,
+      req.body
+    );
+    if (!record)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: 'Attendance record not found' });
+    return res
+      .status(StatusCodes.CREATED)
+      .json(successResponse(record, 'Checked out successfully'));
+  } catch (err) {
+    console.error('Error checking out:', err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).json(customErrorResponse(err));
+    }
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse);
+  }
+};

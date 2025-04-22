@@ -22,3 +22,13 @@ export const getLastAttendance = async (employeeId) => {
     throw new Error('Failed to fetch last attendance');
   }
 };
+
+export const updateAttendance = async (id, data) => {
+  try {
+    const updated = await Attendance.findByIdAndUpdate(id, data, { new: true });
+    return updated;
+  } catch (err) {
+    console.error('Error in updateAttendance:', err);
+    throw new Error('Failed to update attendance');
+  }
+};

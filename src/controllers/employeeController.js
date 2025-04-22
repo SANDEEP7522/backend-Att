@@ -68,3 +68,27 @@ export const getEmployee = async (req, res) => {
       .json(internalErrorResponse);
   }
 };
+
+export const updateEmployee = async (req, res) => {
+  try {
+    const updated = await employeeService.updateEmployeeService(
+      req.params.id,
+      req.body
+    );
+    if (!updated)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: 'Employee not found' });
+    return res
+      .status(StatusCodes.CREATED)
+      .json(successResponse(updated, 'Employee created successfully'));
+  } catch (err) {
+    console.error('Error creating employee:', err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).json(customErrorResponse(err));
+    }
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse);
+  }
+};

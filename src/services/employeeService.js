@@ -29,3 +29,14 @@ export const getEmployeeByIdService = async (id) => {
     throw new Error('Failed to fetch employee by ID');
   }
 };
+
+
+export const updateEmployeeService = async (id, data) => {
+  try {
+    const employee = await Employee.findByIdAndUpdate(id, data, { new: true });
+    return employee;
+  } catch (error) {
+    console.log('Error updating employee:', error);
+    throw new Error('Failed to update employee');
+  }
+};

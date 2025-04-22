@@ -19,3 +19,13 @@ export const getAllEmployeesService = async () => {
     throw new Error('Failed to fetch employees');
   }
 };
+
+export const getEmployeeByIdService = async (id) => {
+  try {
+    const employee = await Employee.findById(id);
+    return employee;
+  } catch (error) {
+    console.log('Error fetching employee by ID:', error);
+    throw new Error('Failed to fetch employee by ID');
+  }
+};

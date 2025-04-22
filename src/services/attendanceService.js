@@ -53,13 +53,15 @@ export const getAllAttendance = async (filters = {}) => {
   }
 };
 
+// get all attendance records for employee
 export const getAttendanceByEmployee = async (employeeId) => {
-     try {
-       const records = await Attendance.find({ employee: employeeId }).populate('employee');
-       return records;
-     } catch (err) {
-       console.error('Error in getAttendanceByEmployee:', err);
-       throw new Error('Failed to fetch attendance for employee');
-     }
-   };
-   
+  try {
+    const records = await Attendance.find({ employee: employeeId }).populate(
+      'employee'
+    );
+    return records;
+  } catch (err) {
+    console.error('Error in getAttendanceByEmployee:', err);
+    throw new Error('Failed to fetch attendance for employee');
+  }
+};

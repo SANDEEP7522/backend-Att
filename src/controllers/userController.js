@@ -6,11 +6,6 @@ import { catchAsyncError } from '../middlewares/catchAsycError.js';
 import ErrorHandler from '../middlewares/error.js';
 import User from '../models/userModel.js';
 import { generateEmailTemplate } from '../utils/commons/emailObject.js';
-import {
-  customErrorResponse,
-  internalErrorResponse,
-  successResponse
-} from '../utils/commons/responseObject.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { sendToken } from '../utils/sendToken.js';
 
@@ -28,10 +23,9 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
     });
 
     if (existingUser) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        success: false,
-        message: 'User already exists'
-      });
+      return next(
+        new ErrorHandler(StatusCodes.BAD_REQUEST, 'User already exists')
+      );
     }
 
     const registrationAttemptUser = await User.find({
@@ -39,10 +33,12 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
     });
 
     if (registrationAttemptUser.length > 5) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        success: false,
-        message: 'Too many registration attempts'
-      });
+      return next(
+        new ErrorHandler(
+          StatusCodes.BAD_REQUEST,
+          'You have reached the limit of registration attempts (5). Try again later after 30 minutes.'
+        )
+      );
     }
 
     const user = await User.create({ name, email, password });
@@ -59,17 +55,18 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
       email
     );
 
-    return res
-      .status(StatusCodes.CREATED)
-      .json(successResponse(user, 'user created successfully'));
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'User registered successfully'
+    });
   } catch (error) {
     console.error('Register User Error:', error);
-    if (error.statusCode) {
-      return res.status(error.statusCode).json(customErrorResponse(error));
+    if (!res.headersSent) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: error.message
+      });
     }
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json(internalErrorResponse);
   }
 });
 
@@ -77,11 +74,10 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
 export const sendVerificationCode = async (
   verificationMethod,
   verificationCode,
+  name,
   email
 ) => {
   try {
-    // console.log(`Verification code: ${verificationCode}`);
-
     if (verificationMethod === 'email') {
       const message = generateEmailTemplate(verificationCode);
       await sendEmail({ email, subject: 'Email Verification Needed', message });

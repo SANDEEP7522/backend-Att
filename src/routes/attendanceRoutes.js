@@ -9,12 +9,15 @@ import {
 
 const router = express.Router();
 
-router.post('/attendance', checkIn);
+router.post('/checkedIn', checkIn);
 
-router.put('/attendance/:id', checkOut);
+router.put('/checked-out/:id', checkOut);
 
-router.get('/checkout', getAllAttendance);
+router.get('/all-attendence', getAllAttendance);
 
-router.get('/get-employee-attendance/:employeeId', getEmployeeAttendance);
+router.get(
+  '/get-one-employee-Allattendance/:employeeId',
+  getEmployeeAttendance
+);
 
 export default router;

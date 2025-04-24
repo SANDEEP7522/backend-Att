@@ -6,7 +6,7 @@ import User from '../models/userModel.js';
 import { catchAsyncError } from './catchAsycError.js';
 
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.headers['x-access-token'];
   if (!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       success: false,

@@ -3,14 +3,14 @@ import cors from 'cors';
 import express from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { removeUnVerfiedAccount } from './automation/removeUnVerfiedAccount.js';
-import dbConection from './config/dbConfig.js';
-import { FRONTEND_URL, PORT } from './config/serverConfig.js';
-import { errorMiddleware } from './middlewares/error.js';
-import attendanceRoutes from './routes/attendanceRoutes.js';
-import employeeRouter from './routes/employeeRoutes.js';
-import reportRoutes from './routes/reportRoutes.js';
-import userRouter from './routes/userRoute.js';
+import { removeUnVerfiedAccount } from './src/automation/removeUnVerfiedAccount.js';
+import dbConection from './src/config/dbConfig.js';
+import { FRONTEND_URL, PORT } from './src/config/serverConfig.js';
+import { errorMiddleware } from './src/middlewares/error.js';
+import attendanceRoutes from './src/routes/attendanceRoutes.js';
+import employeeRouter from './src/routes/employeeRoutes.js';
+import reportRoutes from './src/routes/reportRoutes.js';
+import userRouter from './src/routes/userRoute.js';
 const app = express();
 
 app.use(express.json());

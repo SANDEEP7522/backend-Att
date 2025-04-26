@@ -17,13 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+/*************  ✨ Windsurf Command 🌟  *************/
 app.use(
   cors({
-    origin: [FRONTEND_URL],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-  })
+    origin: function (origin, callback) {
+      callback(null, origin); // Dynamically allow the incoming origin
+    },
+    credentials: true, // Allow credentials
+  })
 );
+/*******  dca79b5e-1421-4483-973c-03dd12653cce  *******/
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1', employeeRouter);
 app.use('/api/v1', attendanceRoutes);

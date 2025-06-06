@@ -12,19 +12,12 @@ import employeeRouter from './src/routes/employeeRoutes.js';
 import reportRoutes from './src/routes/reportRoutes.js';
 import userRouter from './src/routes/userRoute.js';
 const app = express();
-                                                            
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      callback(null, origin); // Dynamically allow the incoming origin
-    },
-    credentials: true // Allow credentials
-  })
-);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1', employeeRouter);
 app.use('/api/v1', attendanceRoutes);

@@ -20,10 +20,10 @@ export const checkIn = async (req, res) => {
       const diffInHours = (now - lastCheckIn) / (1000 * 60 * 60);
 
       // 2. If last record is less than 24 hours, return error
-      if (diffInHours < 24) {
+      if (diffInHours < 4) {
         return res.status(StatusCodes.BAD_REQUEST).json({
           success: false,
-          message: `You can only mark attendance once every 24 hours.`
+          message: `You can only mark attendance once every 4 hours.`
         });
       }
     }
